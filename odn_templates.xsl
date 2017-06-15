@@ -23,7 +23,7 @@
         <xsl:element name="edm:isShownAt" namespace="http://www.europeana.eu/schemas/edm/">
           <xsl:value-of select="normalize-space(.)"/>
         </xsl:element>
-        <xsl:element name="edm:Preview" namespace="http://www.europeana.eu/schemas/edm/">
+        <xsl:element name="edm:preview" namespace="http://www.europeana.eu/schemas/edm/">
           <xsl:variable name="cdm_root" select="substring-before(., '/cdm/ref/')"/>
           <xsl:variable name="record_info" select="substring-after(., '/collection/')"/>
           <xsl:variable name="alias" select="substring-before($record_info, '/id/')"/>
