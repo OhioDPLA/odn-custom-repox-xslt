@@ -17,6 +17,8 @@
   
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
+  <!-- use the URL dc:identifier to both populate edm:isShownAt and use known
+    cDm thumbnail path to construct thumbnail URL for edm:preview -->
   <xsl:template match="dc:identifier" mode="odn">
     <xsl:choose>
       <xsl:when test="starts-with(., 'http://')">
@@ -35,6 +37,8 @@
     </xsl:choose>
   </xsl:template>
   
+  <!-- cDM passes multiple subjects separated by semicolons; split them out and
+    copy them to dcterms:subject -->
   <xsl:template match="dc:subject" mode="odn">
     <xsl:for-each select="tokenize(., ';')">
       <xsl:element name="dcterms:subject" namespace="http://purl.org/dc/terms/">
@@ -47,9 +51,13 @@
     <xsl:copy-of select="normalize-space(.)"/>
   </xsl:template>
   
+  <!-- use dc:relation for dcterms:isPartOf (collection) -->
   <xsl:template match="dc:relation" mode="odn">
     <xsl:element namespace="http://purl.org/dc/terms/" name="dcterms:isPartOf"><xsl:value-of select="."/></xsl:element>
   </xsl:template>
+  
+  <!-- most of the follwing simply copy the dc: element to the corresponding
+        dcterms: element as specified in ODN MAP -->
   
   <xsl:template match="dc:creator" mode="odn">
     <xsl:element namespace="http://purl.org/dc/terms/" name="dcterms:creator">
