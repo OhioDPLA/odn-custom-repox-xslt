@@ -10,7 +10,7 @@
   http://worldcat.org/xmlschemas/qdc/1.0/qdc-1.0.xsd
   http://purl.org/net/oclcterms
   http://worldcat.org/xmlschemas/oclcterms/1.4/oclcterms-1.4.xsd"
-  exclude-result-prefixes="xs" version="2.0" xmlns="http://www.loc.gov/mods/v3">
+  exclude-result-prefixes="xs" version="2.0" xmlns="http://worldcat.org/xmlschemas/qdc-1.0/">
   <xsl:output omit-xml-declaration="yes" indent="yes"/>
   
   <!-- This stylesheet processes standard qualified Dublin Core fields from standard oai_qdc OAI feeds. -->
