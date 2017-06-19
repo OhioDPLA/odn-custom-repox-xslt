@@ -92,9 +92,29 @@
   <xsl:template match="dc:rights" mode="odn">
     <xsl:choose>
       <xsl:when test="starts-with(., 'http')">
-        <xsl:element name="edm:rights"><xsl:value-of select="normalize-space(.)"/></xsl:element>
+        <xsl:choose>
+          <xsl:when test="contains(., '|')">
+            <xsl:element name="edm:rights"><xsl:value-of select="normalize-space(substring-before(., ' |'))"/></xsl:element>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:element name="edm:rights"><xsl:value-of select="normalize-space(.)"/></xsl:element>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
-      <xsl:otherwise><xsl:copy-of copy-namespaces="no" select="."/></xsl:otherwise>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="contains(lower-case(normalize-space(.)), 'in copyright')"/>
+          <xsl:when test="contains(lower-case(normalize-space(.)), 'no copyright')"/>
+          <xsl:when test="contains(lower-case(normalize-space(.)), 'no known copyright')"/>
+          <xsl:when test="contains(lower-case(normalize-space(.)), 'copyright undetermined')"/>
+          <xsl:when test="contains(lower-case(normalize-space(.)), 'copyright not evaluated')"/>
+          <xsl:otherwise>
+            <xsl:element namespace="http://purl.org/dc/elements/1.1/" name="dc:rights">
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:element>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
