@@ -34,7 +34,7 @@
         <xsl:apply-templates select="dc:format" mode="p16998coll11"/>
         <xsl:apply-templates select="dc:type" mode="p16998coll11"/>
         <xsl:copy-of select="dcterms:spatial" copy-namespaces="no"/>
-        <xsl:apply-templates select="dc:publisher" mode="odn"/>
+        <xsl:apply-templates select="dc:publisher" mode="p16998coll11"/>
         <xsl:apply-templates select="dc:rights" mode="odn"/>
         <xsl:copy-of select="dcterms:rightsholder" copy-namespaces="no"/>
         <xsl:apply-templates select="dc:title" mode="odn"/>
@@ -47,6 +47,12 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="dc:publisher" mode="p16998coll11">
+    <xsl:element namespace="http://purl.org/dc/terms/" name="dcterms:publisher">
+      <xsl:value-of select="normalize-space(substring-before(., ' Digital Services Department'))"/>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="dc:format" mode="p16998coll11">
     <xsl:element name="dc:format" namespace="http://purl.org/dc/elements/1.1/">
       <xsl:choose>
